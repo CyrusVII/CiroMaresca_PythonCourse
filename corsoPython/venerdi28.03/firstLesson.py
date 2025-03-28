@@ -10,9 +10,9 @@ age = 25
 print(f"il mio nome e {name}, e ho {age} anni \n ------------")
 
 #prendiamo invece l input dell utente
-name1 = input("Insert name: ")
-age1 = int(input("insert age: "))
-print(f"il mio nome e {name1}, e ho {age1} anni")
+# name1 = input("Insert name: ")
+# age1 = int(input("insert age: "))
+# print(f"il mio nome e {name1}, e ho {age1} anni")
 
 #prendere singola lettera di un str
 s = "prova mondo"
@@ -22,3 +22,16 @@ print(s.upper()) #per fare tutto in maiuscolo
 print(s.lower())#tutto minuscolo
 print(s.split(" "))#crea un array in base allo split
 print(s.replace('prova','camicia'))#cambia un dato presente con uno scelto da te
+
+#boolean True or False 
+#negli if si usa come condizioni (and, or)
+t = True
+f = False
+if(t or f):
+  print("true")
+else:
+  print("not true")
+  
+if(not f and t): #per il contrario
+  print("false")
+  
