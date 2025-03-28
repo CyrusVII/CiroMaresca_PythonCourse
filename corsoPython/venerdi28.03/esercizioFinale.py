@@ -12,8 +12,8 @@
 # • Altrimenti, informa l'utente che le credenziali sono errate.
 # 4. Modifica dati del Programma:
 # • Inserisci una condizione interna che si occupi di cambiare un dato specifico tra quelli inseriti
-# O
 # Appena loggato fai scegliere fra due opzioni di domanda segreta e la risposta ( qual'è il colore preferito, quale animale preferito )
+
 
 accounts = [[1,'ciro', 'pippo','cane','lebuche','mirko']]  # Account predefinito
 nextId = 1
@@ -23,6 +23,7 @@ password = input("Inserisci la tua password: ").lower()
     
 # Verifica degli account 
 accountTrovato = None
+
 # Primo account controllo
 if nome in accounts[0] and password in accounts[0]:
     accountTrovato = accounts[0]
