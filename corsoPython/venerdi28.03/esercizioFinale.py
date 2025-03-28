@@ -29,15 +29,19 @@ if nome in accounts[0] and password in accounts[0]:
     select = input("Scegli la tua domanda di sicurezza (a,b,c): ").lower()
     dom = None
     #domande di sicurezza
+    n = None
     match select:
       case 'a':
         dom = input('Che animale ti piace? ')
+        n = 3
       case 'b':
         dom = input('Cosa ti piace di roma? ')
+        n = 4
       case 'c':
         dom = input('Chi e il tuo prof preferito? ')
+        n = 5
     #controllo domanda di sicurezza
-    if dom in accounts[0]:
+    if dom == accounts[0][n]:
       print(f"-----\nAccesso riuscito. Benvenuto {accountTrovato[1]} (ID: {accountTrovato[0]}).")
       request = int(input('che dato dell account vuoi cambiare nome/password/domanda 1/domanda 2/domanda3(un numero da 1 a 5)? '))
       print(f"-----------------")
@@ -55,6 +59,8 @@ if nome in accounts[0] and password in accounts[0]:
           accounts[0][5] = input("inserisci il tuo prof preferito: ")
       #stampa dati
       print(f"ecco i dati aggiornati: \n{accounts}")
+    else:
+      print("domanda sbagliata")
 else:
   print("Account non trovato o password errata.")#fine programma
         
