@@ -16,7 +16,6 @@
 
 
 accounts = [[1,'ciro', 'pippo','cane','lebuche','mirko']]  # Account predefinito
-nextId = 1
 #inserimento dati utente
 nome = input("Inserisci il tuo nome per l'accesso: ").lower()  # Convertiamo a minuscolo
 password = input("Inserisci la tua password: ").lower()  
