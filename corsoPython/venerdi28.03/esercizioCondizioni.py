@@ -64,5 +64,8 @@ else:
         print(f"Accesso riuscito. Benvenuto {accountTrovato[1]} (ID: {accountTrovato[0]}).")
     else:
         print("Account non trovato o password errata.")
+        
+        
+
 
 

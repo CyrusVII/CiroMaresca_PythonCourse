@@ -16,3 +16,13 @@ elif (n<0):
   print("negative")
 else:
   print("e tra 0 e 10")
+  
+#switch
+comando = 1
+match comando:
+  case 1:
+    print("Nipola")
+  case 2:
+    print("Mattia")
+  case _:
+    print("default")
