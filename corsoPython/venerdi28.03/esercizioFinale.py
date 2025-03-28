@@ -40,6 +40,7 @@ if nome in accounts[0] and password in accounts[0]:
     if dom in accounts[0]:
       print(f"-----\nAccesso riuscito. Benvenuto {accountTrovato[1]} (ID: {accountTrovato[0]}).")
       request = int(input('che dato dell account vuoi cambiare nome/password/domanda 1/domanda 2/domanda3(un numero da 1 a 5)? '))
+      print(f"-----------------")
       #match per cambio dei dati
       match request:
         case 1:
@@ -52,6 +53,7 @@ if nome in accounts[0] and password in accounts[0]:
           accounts[0][4] = input("inserisci cosa ti piace di roma: ")
         case 5:
           accounts[0][5] = input("inserisci il tuo prof preferito: ")
+      #stampa dati
       print(f"ecco i dati aggiornati: \n{accounts}")
 else:
   print("Account non trovato o password errata.")#fine programma
