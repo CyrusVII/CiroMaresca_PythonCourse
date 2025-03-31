@@ -51,7 +51,7 @@ while len(primes) < 5 and len(even) < 5:  # Si ferma quando ha 5 numeri primi
           else:
               print(f"{number} non è un numero pari!")
               
-        print(f"-----\n hai inserito {len(primes)}/5 numeri primi e {len(even)}/5 numeri dispari\n-----")
+        print(f"-----\n hai inserito {len(primes)}/5 numeri primi e {len(even)}/5 numeri pari\n-----")
               
     except ValueError:
         print("Per favore, inserisci un numero valido!")
