@@ -18,23 +18,44 @@ def isPrime(n):
         if n % i == 0:
             return False
     return True
+  
+#funzione numeri pari
+def isEven(n):
+  if n % 2 == 0:
+    return True
+  return False
 
 # Lista per memorizzare i numeri primi
 primes = []
+even = []
 
-while len(primes) < 5:  # Si ferma quando ha 5 numeri primi
+while len(primes) < 5 and len(even) < 5:  # Si ferma quando ha 5 numeri primi
     try:
         # Chiedi all'utente di inserire un numero
         number = int(input("Inserisci un numero: "))
         
-        if isPrime(number):
-            primes.append(number)  # Aggiungi il numero primo alla lista
-            print(f"{number} è un numero primo!")
-        else:
-            print(f"{number} non è un numero primo!")
+        if( len(primes) < 5):
+          if isPrime(number):
+              primes.append(number)  # Aggiungi il numero primo alla lista
+              print(f"{number} è un numero primo!")
+          else:
+              print(f"{number} non è un numero primo!")
         
+        print("------")#print estetico
+        
+        #controllo pari
+        if( len(even) < 5):
+          if isEven(number):
+              even.append(number)  # Aggiungi il numero pari alla lista
+              print(f"{number} è un numero pari!")
+          else:
+              print(f"{number} non è un numero pari!")
+              
+        print(f"-----\n hai inserito {len(primes)}/5 numeri primi e {len(even)}/5 numeri dispari\n-----")
+              
     except ValueError:
         print("Per favore, inserisci un numero valido!")
 
 # Stampa tutti i numeri primi trovati
 print("\nNumeri primi trovati:", primes)
+
