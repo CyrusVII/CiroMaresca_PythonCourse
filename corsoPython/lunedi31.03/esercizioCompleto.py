@@ -19,6 +19,7 @@ def numEven(n):
 
 #inizio main
 try:  
+  
   #var per il while
   b = True
   while b:
@@ -72,8 +73,8 @@ try:
           print(f"Ci sono {cont} numeri nella lista.")
         else:
           print("la lista e vuota...")
-        
     
+    #domanda per ritornare al menu
     b = True if input("Vuoir tornare al menu? s/n ---> ").lower().strip() == "s" else False
   print("Fine programma")
 except ValueError:
