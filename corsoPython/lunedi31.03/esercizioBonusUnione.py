@@ -1,4 +1,6 @@
+#imposto variabile boolean per il while 
 continueProgram = True
+
 while continueProgram:
     # Scelta utente
     ch = int(input("Scegli cosa vuoi fare: \n1) Conto alla rovescia \n2) Troviamo i numeri primi e pari \n0) Esci dal programma\n---> "))
@@ -60,9 +62,11 @@ while continueProgram:
 
                 except ValueError:
                     print("Per favore, inserisci un numero valido!")
-
+        #case default
         case _:
             print("Scelta non valida, arrivederci...")
+            
+    #domanda se tornare al menu o no
     continueProgram = True if input("Vuoir tornare al menu? s/n ---> ").lower().strip() == "s" else False
 
 
