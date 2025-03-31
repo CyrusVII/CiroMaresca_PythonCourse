@@ -34,7 +34,7 @@ try:
         taskList = []
         
         # raccogliamo le scelte dell'utente in una lista
-        for _ in range(taskNumber):
+        for _ in range(taskNumber):#underscore indica una var che non useremo nel for
             taskList.append(int(input("-----\nCosa vuoi fare:\n1) Vediamo se il numero è pari \n2) Conto alla rovescia \n3) Calcoliamo il quadrato \n4) Gioco lista\n0) Abbandona \n---> ")))
         
         # eseguiamo le task in sequenza
