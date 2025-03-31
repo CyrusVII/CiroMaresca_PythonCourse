@@ -9,41 +9,86 @@
 #se l operazione scelta non e valida scrivere operazione non valida
 
 #try catch gestione errori
+# try:
+#     # Richiesta dati dall'utente
+#     print("\n--- MENU ---")
+#     print("1. Addizione (+)")
+#     print("2. Sottrazione (-)")
+#     print("3. Divisione (/)")
+#     print("4. Moltiplicazione (*)")
+#     print("5. Esci")
+#     print("-------")
+    
+#     scelta = input("Inserisci la scelta: ").strip()
+#     operazioni = {"1": "+", "2": "-", "3": "/", "4": "*"}#mappa operazioni
+#     op = operazioni.get(scelta)
+    
+#     #if controllo scelta e operazione
+#     if scelta == "5":
+#         print("Uscita dal programma.")
+#     elif not op:
+#         print("Operazione non valida. Usa solo 1, 2, 3, 4 o 5.")
+#     else:
+#         n1 = int(input("Inserisci valore N1: "))
+#         n2 = int(input("Inserisci valore N2: "))
+#         print("-------")
+#         # Match per controllare la scelta dell'utente
+#         match op:
+#             case "+":
+#                 print(f"Risultato addizione: {n1 + n2}")
+#             case "-":
+#                 print(f"Risultato sottrazione: {n1 - n2}")
+#             case "/":
+#                 if n2 == 0:
+#                     print("Errore: Impossibile dividere per 0")
+#                 else:
+#                     print(f"Risultato divisione: {n1 / n2}")
+#             case "*":
+#                 print(f"Risultato moltiplicazione: {n1 * n2}")
+# except ValueError:  # ValueError per catturare gli errori in input
+#     print("Errore: Inserisci solo numeri validi per N1 e N2!")
+
+#bonus esercizio 
+
+def operazione(n1, n2, op):
+    # Match per controllare la scelta dell'utente
+    match op:
+        case "+":
+            print(f"Risultato addizione: {n1 + n2}")
+        case "-":
+            print(f"Risultato sottrazione: {n1 - n2}")
+        case "/":
+            if n2 == 0:
+                print("Errore: Impossibile dividere per 0")
+            else:
+                print(f"Risultato divisione: {n1 / n2}")
+        case "*":
+            print(f"Risultato moltiplicazione: {n1 * n2}")
+        case _:
+            print("Operazione non valida")
+#try catch
 try:
     # Richiesta dati dall'utente
-    print("\n--- MENU ---")
-    print("1. Addizione (+)")
-    print("2. Sottrazione (-)")
-    print("3. Divisione (/)")
-    print("4. Moltiplicazione (*)")
-    print("5. Esci")
-    print("-------")
+    n1 = int(input("Inserisci valore N1: "))
+    n2 = int(input("Inserisci valore N2: "))
+    op1 = input("Inserisci operazione (+, *, /, -): ")
+    op2 = input("Inserisci operazione (+, *, /, -): ")
     
-    scelta = input("Inserisci la scelta: ").strip()
-    operazioni = {"1": "+", "2": "-", "3": "/", "4": "*"}#mappa operazioni
-    op = operazioni.get(scelta)
+    listOp = ["+", "-", "/", "*"]
     
-    #if controllo scelta e operazione
-    if scelta == "5":
-        print("Uscita dal programma.")
-    elif not op:
-        print("Operazione non valida. Usa solo 1, 2, 3, 4 o 5.")
+    if op1 in listOp:
+        operazione(n1, n2, op1)  # Chiamata alla funzione per eseguire l'operazione
     else:
-        n1 = int(input("Inserisci valore N1: "))
-        n2 = int(input("Inserisci valore N2: "))
-        print("-------")
-        # Match per controllare la scelta dell'utente
-        match op:
-            case "+":
-                print(f"Risultato addizione: {n1 + n2}")
-            case "-":
-                print(f"Risultato sottrazione: {n1 - n2}")
-            case "/":
-                if n2 == 0:
-                    print("Errore: Impossibile dividere per 0")
-                else:
-                    print(f"Risultato divisione: {n1 / n2}")
-            case "*":
-                print(f"Risultato moltiplicazione: {n1 * n2}")
+        print("Operazione 1 non valida")
+
+    if op2 in listOp:
+        operazione(n1, n2, op2)  # Chiamata alla funzione per eseguire l'operazione
+    else:
+        print("Operazione 2 non valida")
+
 except ValueError:  # ValueError per catturare gli errori in input
     print("Errore: Inserisci solo numeri validi per N1 e N2!")
+
+
+
+  
