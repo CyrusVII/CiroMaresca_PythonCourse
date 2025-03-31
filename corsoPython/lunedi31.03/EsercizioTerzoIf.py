@@ -49,7 +49,6 @@
 #     print("Errore: Inserisci solo numeri validi per N1 e N2!")
 
 #bonus esercizio 
-
 def operazione(n1, n2, op):
     # Match per controllare la scelta dell'utente
     match op:

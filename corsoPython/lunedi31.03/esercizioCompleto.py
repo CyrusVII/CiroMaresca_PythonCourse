@@ -11,52 +11,41 @@
 # 2. Utilizzare un ciclo while per contare quanti numeri sono presenti nella lista. 
 # 3. Utilizzare una condizione if per stampare "Lista Vuota" se la lista è vuota, altrimenti stampare il numero massimo trovato e il numero di elementi nella lista.
 
-#dichiarazione funzioni
+#funzioni 
+#funzione numero pari
 def numEven(n):
-  if n%2 == 0:
-    return f"Il numero {n} e pari"
-  return f"Il numero {n} e dispari"
+    return f"Il numero {n} è pari" if n % 2 == 0 else f"Il numero {n} è dispari"
 
-#funzione per inserire nella lista
-def listInsert(n,list):
-  for i in range(n):
-    nTemp = float(input("Inserisci un numero--> "))
-    list.append(nTemp)
-  return list
+#funzione inserimento lista
+def listInsert(nList, allNumber):
+    for _ in range(nList):
+        allNumber.append(int(input("Inserisci un numero: ")))
 
-#controllo se i valori sono int
+#funzione conta interi
 def contInt(allNumber):
-    cont = 0
-    indice = 0
-    while indice < len(allNumber):
-        if isinstance(allNumber[indice], (int, float)):  # Controlla se è numero
-            cont += 1
-        indice += 1
-
-    print(f"Ci sono {cont} numeri nella lista.")
-    return
-
+    print(f"Nella lista ci sono {len(set(allNumber))} numeri unici")
 
 # inizio main
-try:  
+try:
     # var per il while
     b = True
     while b:
         taskNumber = int(input("Quante task vuoi fare: "))
-        while taskNumber > 0:
-            # scelta dell'utente 
-            st = int(input("-----\nCosa vuoi fare:\n1) Vediamo se il numero è pari \n2) Conto alla rovescia \n3) Calcoliamo il quadrato \n4) Gioco lista\n0) Abbandona \n---> "))
-            
-            # match per la scelta
-            match st:
+        taskList = []
+        
+        # raccogliamo le scelte dell'utente in una lista
+        for _ in range(taskNumber):
+            taskList.append(int(input("-----\nCosa vuoi fare:\n1) Vediamo se il numero è pari \n2) Conto alla rovescia \n3) Calcoliamo il quadrato \n4) Gioco lista\n0) Abbandona \n---> ")))
+        
+        # eseguiamo le task in sequenza
+        for task in taskList:
+            match task:
                 case 0:  # case di uscita
                     print("Arrivederci")
                     break
-                
                 case 1:  # primo esercizio troviamo un numero positivo
                     n = int(input("Inserisci un numero --> "))
                     print(numEven(n))
-                
                 case 2:  # contiamo alla rovescia
                     n = int(input("Inserisci un numero positivo --> "))
                     if n > 0:
@@ -64,7 +53,6 @@ try:
                             print(i)
                     else:
                         print("Numero non positivo, ripetere l'operazione...")
-                
                 case 3:  # lista di numeri
                     # creiamo una lista vuota e prendiamo l'input per la grandezza della lista
                     allNumber = []
@@ -74,7 +62,6 @@ try:
                     # stampiamo il quadrato
                     for s in allNumber:
                         print(f"Il numero nella lista è {s} ---> {pow(s,2)} il quadrato.")
-                
                 case 4:  # lista dell'utente
                     # creiamo una lista vuota e prendiamo l'input per la grandezza della lista
                     allNumber = []
@@ -82,28 +69,17 @@ try:
                     # iteriamo per riempire la lista
                     listInsert(nList, allNumber)
                     # controlliamo se la lista è piena
-                    if len(allNumber) > 0:
+                    if allNumber:
                         # stampiamo il numero massimo
                         print(f"Il numero massimo della lista è: {max(allNumber)} e ci sono {len(allNumber)} elementi nella lista")
                         # controlliamo quanti valori ci sono
                         contInt(allNumber)
                     else:
                         print("La lista è vuota")
-            
-            # decremento taskNumber per evitare loop infinito
-            taskNumber -= 1
-            #chiediamo all utente se vuole continuare con le task prescelte
-            if input("----\n Vuoi proseguire? s/n ---> ").lower().strip() == "s":
-              print("continua....")
-            else: 
-              break
+        
         # domanda per ritornare al menu
         b = True if input("Vuoi tornare al menu? s/n ---> ").lower().strip() == "s" else False
-    
-    print("Fine programma")
 
+    print("Fine programma")
 except ValueError:
     print("Per favore, inserisci un numero valido!")
-
-  
-
