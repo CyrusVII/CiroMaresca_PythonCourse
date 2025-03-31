@@ -69,7 +69,7 @@ try:
           while indice < len(allNumber):
             if isinstance(allNumber[indice], (int, float)):  # Controlla se è numero
               cont += 1
-          indice += 1
+            indice += 1
           print(f"Ci sono {cont} numeri nella lista.")
         else:
           print("la lista e vuota...")
