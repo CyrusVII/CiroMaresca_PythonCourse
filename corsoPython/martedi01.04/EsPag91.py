@@ -8,6 +8,7 @@
 # 6. Utilizza un ciclo for per stampare tutti i numeri primi nella lista.
 # 7. Infine, utilizza una struttura if per determinare se la somma di tutti i numeri nella lista è un numero primo e stampa il risultato
 
+#import
 import random
 
 # Funzione per inserire un numero intero positivo
@@ -67,7 +68,6 @@ n = insert_int()
 n1 = insert_int()
 numberListComplete = list(range(n, n1 + 1))
 numerRandomList = []
-
 random_list(numerRandomList, numberListComplete, n1)
 print(f"La lista random è: {numerRandomList}\n-----")
 
