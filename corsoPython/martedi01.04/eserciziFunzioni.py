@@ -41,7 +41,6 @@ while True:
       
       case 1:
         found_the_number()
-        
       case 2: 
         n = int(input("Inserisci un numero intero ---> "))
         sequenza = fibonacci_found(n)
