@@ -28,11 +28,15 @@ def fibonacci_found(n):
         sequenza.append(a)
         a, b = b, a + b
     return sequenza
-            
+      
+#inizio while per il menu      
 while True:
+  #try per il controllo degli interi
   try:
+    #l utente sceglie cosa fare
     ch = int(input("---Menu---\n 1) Indovina il numero \n 2) Fibonacci \n ---> "))
     
+    #match che gestisce la scelta dell utente
     match ch:
       
       case 1:
@@ -45,6 +49,7 @@ while True:
       case _:
         print("Scelta non valida222")
         
+    #domanda per tornare al menu
     if input("Vuoi proseguire s/n ---> ").lower().strip() == "n":
       break
   except ValueError:
