@@ -64,10 +64,11 @@ def list_total(numbers):
 
 # Chiamata alla funzione principale
 n = insert_int()
-numberListComplete = list(range(1, n + 1))
+n1 = insert_int()
+numberListComplete = list(range(n, n1 + 1))
 numerRandomList = []
 
-random_list(numerRandomList, numberListComplete, n)
+random_list(numerRandomList, numberListComplete, n1)
 print(f"La lista random è: {numerRandomList}\n-----")
 
 # Analizza i numeri pari e dispari
