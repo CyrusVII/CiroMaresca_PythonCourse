@@ -31,7 +31,7 @@ def main():
       case 2:
         somma_lista()
         
-    if input("Vuoi tornare al menu? (s/n) ---> ").lower().strip() == "n":
+    if input("-----\n Vuoi tornare al menu? (s/n) ---> ").lower().strip() == "n":
       break
 
 #chiamo il main che avvia il programma
