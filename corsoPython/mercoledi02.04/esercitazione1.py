@@ -76,8 +76,8 @@ def operazioni_insiemi():
 
 # Chiamata alle funzioni per la dimostrazione simulando un menu
 print("Inizio dimostrazione: ")
-ch = int(input("--- Menu --- \n 1) Variabili base \n 2) Condizionali \n 3) Ciclo whilw \n 4) Ciclo for liste \n 5) Ciclo for range \n 6) Operazioni insieme \n 0) exit \n ---> "))
 while True:
+  ch = int(input("--- Menu --- \n 1) Variabili base \n 2) Condizionali \n 3) Ciclo whilw \n 4) Ciclo for liste \n 5) Ciclo for range \n 6) Operazioni insieme \n 0) exit \n ---> "))
   match ch:
     case 1:
       variabili_base()
