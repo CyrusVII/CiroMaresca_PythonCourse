@@ -69,7 +69,7 @@ def found_book(bookListAv,bookId):
         if book[0] == bookId:
             # Stampiamo il titolo del libro
             return {book[1]}
-     
+
 # Funzione per prenotare un libro
 def take_book(userBookList, bookListAv, id):
     print("--- Prenotazione di un libro ---")
@@ -137,7 +137,7 @@ def back_book(userBookList, bookListAv, id):
     
     print("Libro restituito con successo.")
 
-    
+
 #funzione per vedere i dati dell utente
 def view_user_date(userList,userBookList,id,bookListAv):
      #stampiamo il nome dell utente e i relativi dati 
@@ -150,7 +150,7 @@ def view_user_date(userList,userBookList,id,bookListAv):
             for i in range(n):
               bookId = userBook[i+1]
               print(found_book(bookListAv,bookId))
-   
+
 
 #creiamo una funzione per il menu
 def menu(sessionId):
@@ -199,5 +199,6 @@ def main():
             menu(sessionId)
         case False:
             print('Problemi con l accesso')
-            
+
+#esecuzione programma
 main()
