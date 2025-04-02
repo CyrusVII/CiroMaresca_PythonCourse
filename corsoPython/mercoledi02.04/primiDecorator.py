@@ -71,7 +71,37 @@ def esempio_funzione():
     print("Funzione completata!")
 
 # Chiamiamo la funzione decorata per vedere quanto tempo impiega
-esempio_funzione()
+#esempio_funzione()
+
+# Definizione del decoratore "logger"
+def logger(funzione):
+    # La funzione wrapper avvolge la funzione originale per aggiungere funzionalità extra
+    def wrapper(*args, **kwargs):
+        # Prima di chiamare la funzione originale, stampiamo il nome della funzione e gli argomenti passati
+        print(f"Chiamata a {funzione.__name__} con argomenti: {args} e {kwargs}")
+        
+        # Eseguiamo la funzione originale con gli argomenti passati
+        risultato = funzione(*args, **kwargs)
+        
+        # Dopo aver eseguito la funzione, stampiamo il risultato
+        print(f"Risultato di {funzione.__name__}: {risultato}")
+        
+        # Restituiamo il risultato della funzione
+        return risultato
+    
+    return wrapper  # Restituiamo la funzione wrapper che avvolge la funzione originale
+
+# Decoriamo la funzione "moltiplica" con il decoratore "logger"
+@logger
+def moltiplica(a, b):
+    # La funzione "moltiplica" restituisce il prodotto di a e b
+    return a * b
+
+# Chiamata alla funzione decorata "moltiplica"
+moltiplica(3 , 4)#senza kwargs
+moltiplica(a = 3 , b = 4) #con kwargs
+
+
 
 
 
