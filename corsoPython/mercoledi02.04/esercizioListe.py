@@ -4,36 +4,38 @@ def quadrato():
   print(f"Il quadrato di {n} = {pow(n,2)}")
   
 #somma liste
-def sum_list(lista,somma):
-  #faccio un ciclo per iterare la lista e fare i quadrati piu la somma
-  for i in lista:
-    print(f"Il quadrato di {i} = {pow(i,2)}")
-    somma += i
-  
-#funzione calcolo quadrato lista
+def sum_list(lista, somma):
+    """Itera la lista, stampa il quadrato di ogni numero e aggiorna la somma"""
+    for i in lista:
+        print(f"Il quadrato di {i} = {pow(i,2)}")
+        somma += i
+    return somma  # Restituisce il valore aggiornato
+
+# funzione calcolo quadrato lista
 def somma_lista():
-  #dichiaro una variabile 
-  somma = 0
-  nLista = []
-  #ciclo per fa inserire i numeri nella lista
-  while True:
-    n = int(input("Inserisci un numero: "))
-    nLista.append(n)
-    if input("Vuoi aggingere ancora? (s/n) ---> ").lower().strip() == "n":
-      if input("Vuoi fare un altra lista? (s/n) ---> ").lower().strip() == "s":
-        sum_list(nLista,somma)
-        nLista.clear()
-      else:
-        sum_list(nLista,somma)
-        break
-  
-  print(f"Il quadrato della lista/e e: {pow(somma,2)}")
+    """Permette di creare più liste, calcola il quadrato di ogni numero e il quadrato della somma totale"""
+    somma = 0
+    nLista = []
+    
+    while True:
+        n = int(input("Inserisci un numero: "))
+        nLista.append(n)
+        
+        if input("Vuoi aggiungere ancora? (s/n) ---> ").lower().strip() == "n":
+            if input("----- \n Vuoi fare un'altra lista? (s/n) ---> ").lower().strip() == "s":
+                somma = sum_list(nLista, somma)  # Aggiorna somma
+                nLista.clear()
+            else:
+                somma = sum_list(nLista, somma)  # Ultima somma prima di uscire
+                break
+    
+    print(f"Il quadrato della somma totale è: {pow(somma,2)}")
 
 #funzione main per avviare il tutto
 def main():
   #un menu per gestire i due esercizi
   while True:
-    match int(input("--- Menu --- \n 1) Quadrato di un numero \n 2) Quadrato di una lista e somma \n ---> ")):
+    match int(input("--- Menu --- \n 1) Quadrato di un numero \n 2) Quadrato di una lista o piu e somma \n ---> ")):
       case 1:
         quadrato()
       case 2:
