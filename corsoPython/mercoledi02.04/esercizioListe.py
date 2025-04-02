@@ -9,7 +9,7 @@ def sum_list(lista, somma):
     for i in lista:
         print(f"Il quadrato di {i} = {pow(i,2)}")
         somma += i
-    return somma  # Restituisce il valore aggiornato
+    return somma  
 
 # funzione calcolo quadrato lista
 def somma_lista():
@@ -23,10 +23,10 @@ def somma_lista():
         
         if input("Vuoi aggiungere ancora? (s/n) ---> ").lower().strip() == "n":
             if input("----- \n Vuoi fare un'altra lista? (s/n) ---> ").lower().strip() == "s":
-                somma = sum_list(nLista, somma)  # Aggiorna somma
+                somma = sum_list(nLista, somma)  
                 nLista.clear()
             else:
-                somma = sum_list(nLista, somma)  # Ultima somma prima di uscire
+                somma = sum_list(nLista, somma) 
                 break
     
     print(f"Il quadrato della somma totale è: {pow(somma,2)}")
