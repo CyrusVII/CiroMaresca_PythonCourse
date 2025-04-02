@@ -133,10 +133,7 @@ def back_book(userBookList, bookListAv, id):
             break
     
     #aggiorniamo lista utenteLibri
-    for book in userBookList:
-        if book[0] == id:
-            book.remove[ch]
-            break
+    user_books.remove(ch)
     
     print("Libro restituito con successo.")
 
@@ -179,9 +176,9 @@ def menu(sessionId):
 #dichiarazioni var
 userList = [["Cyrus","Pippo123!"]]
 #creo una lista dei libri disponibili id,titolo,copi
-bookListAvalible = [[0,"Viaggio al centro della terra",10],[1,"La sauna",7]]
+bookListAvalible = [[1,"Viaggio al centro della terra",10],[2,"La sauna",7]]
 #creo una lista di libri posseduti da un utente idUser,Idbook,idBook
-userBookList = [[0,0,1]]
+userBookList = [[0,1,2]]
 #funzione main per far partire tutto
 def main():
     #simuliamo un session token che sara la posizione della lista nella lista
