@@ -3,23 +3,31 @@ def quadrato():
   n = int(input("Inserisci un numero: "))
   print(f"Il quadrato di {n} = {pow(n,2)}")
   
+#somma liste
+def sum_list(lista,somma):
+  #faccio un ciclo per iterare la lista e fare i quadrati piu la somma
+  for i in lista:
+    print(f"Il quadrato di {i} = {pow(i,2)}")
+    somma += i
+  
 #funzione calcolo quadrato lista
 def somma_lista():
+  #dichiaro una variabile 
+  somma = 0
   nLista = []
   #ciclo per fa inserire i numeri nella lista
   while True:
     n = int(input("Inserisci un numero: "))
     nLista.append(n)
     if input("Vuoi aggingere ancora? (s/n) ---> ").lower().strip() == "n":
-      break
-  #dichiaro una variabile somma 
-  somma = 0
-  #faccio un ciclo per iterare la lista e fare i quadrati piu la somma
-  for i in nLista:
-    print(f"Il quadrato di {i} = {pow(i,2)}")
-    somma += i
-    
-  print(f"Il quadrato della lista e: {pow(somma,2)}")
+      if input("Vuoi fare un altra lista? (s/n) ---> ").lower().strip() == "s":
+        sum_list(nLista,somma)
+        nLista.clear()
+      else:
+        sum_list(nLista,somma)
+        break
+  
+  print(f"Il quadrato della lista/e e: {pow(somma,2)}")
 
 #funzione main per avviare il tutto
 def main():
@@ -36,3 +44,4 @@ def main():
 
 #chiamo il main che avvia il programma
 main()
+
