@@ -46,8 +46,8 @@ class Libro:
       self.pagine = pagine
       
   def descrizione(self):
-    print(f"Il libro e {self.titolo} e stato scritto da {self.autore} a {self.pagine} pagine")
+    return f"Il libro e {self.titolo} e stato scritto da {self.autore} a {self.pagine} pagine"
     
 #inizializzo e provo
 libro = Libro('La programmazione di Mirko','Mirko',22)
-libro.descrizione()
+print(libro.descrizione())
