@@ -25,29 +25,13 @@ class Punto:
         return math.sqrt(self.x ** 2 + self.y ** 2) #math.sqrt() per calcolare la radice quadrata.
 
 # Test della classe
-# p = Punto(3, 4)
-# print(f"Coordinate iniziali: ({p.x}, {p.y})")
+p = Punto(3, 4)
+print(f"Coordinate iniziali: ({p.x}, {p.y})")
 
-# p.muovi(1, -2)
-# print(f"Dopo lo spostamento: ({p.x}, {p.y})")
+p.muovi(1, -2)
+print(f"Dopo lo spostamento: ({p.x}, {p.y})")
 
-# distanza = p.distanza_da_origine()
-# print(f"Distanza dall'origine: {distanza}")
+distanza = p.distanza_da_origine()
+print(f"Distanza dall'origine: {distanza}")
 
-# Esercizio 2 (Facile):
-# Crea una classe chiamata Libro. Questa classe dovrebbe avere:
-# Tre attributi: titolo, autore e pagine.
-# Un metodo descrizione che restituisca una stringa del tipo "Il libro 'titolo' è stato scritto da 'autore' e ha 'pagine' pagine.".
 
-class Libro:
-  def __init__(self,titolo,autore,pagine):
-      self.titolo = titolo
-      self.autore = autore
-      self.pagine = pagine
-      
-  def descrizione(self):
-    return f"Il libro e {self.titolo} e stato scritto da {self.autore} a {self.pagine} pagine"
-    
-#inizializzo e provo
-libro = Libro('La programmazione di Mirko','Mirko',22)
-print(libro.descrizione())
