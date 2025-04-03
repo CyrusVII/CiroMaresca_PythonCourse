@@ -5,8 +5,6 @@
 # Un metodo distanza_da_origine che restituisca la distanza del punto dall'origine (0,0) del
 # piano.
 
-
-
 import math  # Importiamo la libreria per usare sqrt()
 
 class Punto:

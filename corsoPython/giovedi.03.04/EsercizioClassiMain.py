@@ -25,6 +25,8 @@ class Main:
             print(self.libro.descrizione())
         else:
             print("Nessun libro creato.")
+    
+    
 
 # Esecuzione del codice
 main = Main()  # Crea un oggetto Main
