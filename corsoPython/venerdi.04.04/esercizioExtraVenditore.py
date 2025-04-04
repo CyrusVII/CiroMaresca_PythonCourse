@@ -1,7 +1,7 @@
 #implementare classe venditore che richieda x prodotti alla fabbrica la fabbrica puoi produre 10 prodotti al giorno
 #import
 import time
-
+import math
 #classe prodotti
 class Product:
   
@@ -16,7 +16,7 @@ class Product:
     
   #metodo per calcolare i giorni di produzione
   def day_production(self,day):
-    return day // 10
+    return math.ceil(day / 10)
 
 #classe factory per gestire i prodotti
 class Factory:
