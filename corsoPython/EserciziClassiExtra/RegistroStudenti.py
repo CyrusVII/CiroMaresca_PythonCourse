@@ -154,6 +154,7 @@ class Register():
     for key,val in self.student.items():
       val.print_info(key)
       
+# ---------- MAIN ----------
 def main():
   # Crea un'istanza del registro studenti
   register = Register()

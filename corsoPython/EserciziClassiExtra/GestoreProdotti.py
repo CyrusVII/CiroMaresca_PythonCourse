@@ -70,7 +70,7 @@ class Magazine:
             total += (val.price * val.quantity)
         return total
 
-
+# ---------- MAIN ----------
 def main():
     # Create 2 test products
     p1 = Product("Salt", 2.5, 10)
