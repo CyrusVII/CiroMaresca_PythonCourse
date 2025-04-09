@@ -99,7 +99,6 @@ class Register:
             new_id = max(self.student.keys(), default=0) + 1
             self.student[new_id] = student
             print("--- Studente aggiunto ---")
-        self.save_to_csv()  # Salva i dati nel file CSV
 
     # Calcola la media complessiva della classe
     def med_of_class(self):
@@ -125,18 +124,37 @@ class Register:
         for key, val in self.student.items():
             val.print_info(key)
 
+    #aggiungi all vote for 1 student
+    def all_vote_for_one(self):
+        key = int(input("Inserisci id studente per cui aggiungere voti ---> "))
+        if key in self.student:
+            self.student[key].add_all_valutation()
+        else:
+            print("Studente non trovato")
+    
+    #metod voti per una materia
+    def vote_for_one_subject(self):
+        key = int(input("Inserisci id studente per cui aggiungere voti ---> "))
+        if key in self.student:
+            self.student[key].add_one_valutation()
+        else:
+            print("Studente non trovato")
+    
     # Salva i dati degli studenti nel file CSV
     def save_to_csv(self):
         with open('csvFolder/alunni.csv', 'w', newline='') as file:
             writer = csv.writer(file)
-            subjects = list(next(iter(self.student.values())).valutation.keys())
-            header = ["id", "name", "surname"] + subjects
-            writer.writerow(header)
-            for student_id, student in self.student.items():
-                row = [student_id, student.name, student.surname]
-                for subject in subjects:
-                    row.append(",".join(map(str, student.valutation[subject])))
-                writer.writerow(row)
+            if self.student:
+                subjects = list(next(iter(self.student.values())).valutation.keys())
+                header = ["id", "name", "surname"] + subjects
+                writer.writerow(header)
+                for student_id, student in self.student.items():
+                    row = [student_id, student.name, student.surname]
+                    for subject in subjects:
+                        row.append(",".join(map(str, student.valutation[subject])))
+                    writer.writerow(row)
+            else:
+                pass  
 
     # Carica i dati degli studenti dal file CSV
     def load_from_csv(self):
@@ -144,7 +162,12 @@ class Register:
             return
         with open('csvFolder/alunni.csv', 'r') as file:
             reader = csv.reader(file)
-            header = next(reader)
+            try:
+                header = next(reader)
+            except StopIteration:
+                print("Il file CSV è vuoto.")
+                return
+            
             subjects = header[3:]
             for row in reader:
                 student_id = int(row[0])
@@ -156,53 +179,95 @@ class Register:
                     votes = list(map(float, votes_str.split(","))) if votes_str else []
                     student.valutation[subject] = votes
                 self.student[student_id] = student
+    
+    
+    #metodo per eliminare alunno
+    def delete_student(self):
+        n = int(input("Id studente da eliminare ---> "))
+        self.student.pop(n)
+    
+    #delete vote metodo
+    def delete_modify_vote(self):
+        key = int(input("Inserisci id studente per cui eliminare/modificare un voto ---> "))
+        if key in self.student:
+            student = self.student[key]
+            print(f"--- {student.name} {student.surname} ---")
+            student.print_subject()
+            subject = input("\nInserisci la materia da cui eliminare/modificare un voto ---> ").lower().strip()
+            ch = input("Vuoi rimuovere o modificare un voto? r/m --> ").lower().strip()
+            if student.exist_valutation(subject):
+                if student.valutation[subject]:
+                    print(f"Voti attuali per {subject}: {student.valutation[subject]}")
+                    try:
+                        vote_to_remove = float(input("Inserisci il voto da eliminare/modificare ---> "))
+                        if vote_to_remove in student.valutation[subject]:
+                            match ch:
+                                case "r":
+                                    student.valutation[subject].remove(vote_to_remove)
+                                    print("Voto eliminato con successo.")
+                                case "m":
+                                    student.valutation[subject].remove(vote_to_remove)
+                                    try:
+                                        new_vote = float(input("Inserisci il nuovo voto ---> "))
+                                        student.valutation[subject].append(new_vote)
+                                        print("Voto modificato con successo.")
+                                    except ValueError:
+                                        print("Input non valido. Inserisci un numero.")
+                        else:
+                            print("Il voto specificato non esiste.")
+                    except ValueError:
+                        print("Input non valido. Inserisci un numero.")
+                else:
+                    print(f"Nessun voto presente per la materia {subject}.")
+            else:
+                print("Materia non trovata.")
+        else:
+            print("Studente non trovato.")
 
 # Funzione principale del programma
 def main(): 
     register = Register()
-    if not file_exist():
-        print("--- Benvenuto/a! Aggiungiamo i tuoi studenti ---")
-        register.add_student()
-
+    
     # Menu di interazione con l'utente
     while True:
         try:
             ch = int(input("--- Menu ---\n 1) Visualizza studenti\n 2) Aggiungi studenti \n 3) Aggiungi 1 voto per materia a uno studente\n"
-                        " 4) Aggiungi voto per specifica materia \n 5) Miglior studente \n 6) Media classe \n 7) Exit \n ---> "))
+                        " 4) Aggiungi voto per specifica materia \n 5) Miglior studente \n "
+                        "6) Media classe \n 7) Elimina studente \n 8) Delete modify vote \n 0) Exit \n ---> "))
         except ValueError:
             print("Input non valido. Inserisci un numero.")
             continue
+        try:
+            match ch:
+                case 1:
+                    register.print_all_student()
+                case 2:
+                    register.add_student()
+                case 3:
+                    register.all_vote_for_one()
+                case 4:
+                    register.vote_for_one_subject()
+                case 5:
+                    register.best_student()
+                case 6:
+                    register.med_of_class()
+                case 7:
+                    register.delete_student()
+                case 8:
+                    register.delete_modify_vote()
+                case 0:
+                    print("Fine programma...")
+                    break
+                case _ :
+                    print("Opzione non valida")
 
-        if ch == 1:
-            register.print_all_student()
-        elif ch == 2:
-            register.add_student()
-        elif ch == 3:
-            key = int(input("Inserisci id studente per cui aggiungere voti ---> "))
-            if key in register.student:
-                register.student[key].add_all_valutation()
+            if input("Vuoi tornare al menu? s/n ---> ").strip().lower() == "n":
                 register.save_to_csv()
-            else:
-                print("Studente non trovato")
-        elif ch == 4:
-            key = int(input("Inserisci id studente per cui aggiungere voti ---> "))
-            if key in register.student:
-                register.student[key].add_one_valutation()
-                register.save_to_csv()
-            else:
-                print("Studente non trovato")
-        elif ch == 5:
-            register.best_student()
-        elif ch == 6:
-            register.med_of_class()
-        elif ch == 7:
-            print("Fine programma...")
-            break
-        else:
-            print("Opzione non valida")
-
-        if input("Vuoi tornare al menu? s/n ---> ").strip().lower() == "n":
-            break
+                break
+        except:
+            print("Errore, ma i dati sono stati salvati")
+            register.save_to_csv()
+            continue
 
 # Avvio del programma
 main()
