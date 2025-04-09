@@ -1,14 +1,17 @@
 import csv
 import os
 
+# Funzione per verificare se esiste il file CSV degli studenti
 def file_exist():
     file_path = 'csvFolder/alunni.csv'
     return os.path.exists(file_path)
 
+# Classe per rappresentare uno studente
 class Student:
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
+        # Dizionario per contenere i voti per materia
         self.valutation = {
             "math": [],
             "italian": [],
@@ -16,9 +19,11 @@ class Student:
             "history": [],
         }
 
+    # Verifica se una materia esiste nella lista delle valutazioni
     def exist_valutation(self, key):
         return key in self.valutation
 
+    # Aggiunge un voto per ogni materia
     def add_all_valutation(self):
         print("--- Menu per aggiungere un voto per materia ---")
         print(f"Studente {self.name} {self.surname}: ")
@@ -31,6 +36,7 @@ class Student:
                 except ValueError:
                     print('Voto inserito non valido. Riprova')
 
+    # Aggiunge più voti per una materia specifica
     def add_one_valutation(self):
         while True:
             print("--- Menu per aggiungere un voto ---")
@@ -49,34 +55,41 @@ class Student:
                 except ValueError:
                     print('Voto inserito non valido. Riprova')
 
+    # Stampa le informazioni dello studente con la media per materia
     def print_info(self, id):
         print(f"---\n{id}) {self.name} {self.surname}:")
         for key, val in self.valutation.items():
             print(f"{key} : {val} / Media : {self.med_vote_for_subject(val)}")
 
+    # Stampa l'elenco delle materie
     def print_subject(self):
         print("--- Materie ---")
         for key in self.valutation.keys():
             print(key, end=" / ")
 
+    # Calcola la media dei voti per una materia
     def med_vote_for_subject(self, val):
         return sum(val) / len(val) if val else 0
 
+    # Calcola la media generale di tutte le materie
     def med_all_vote(self):
         total = sum(sum(val) for val in self.valutation.values())
         number_of_votes = sum(len(val) for val in self.valutation.values())
         return round(total / number_of_votes, 1) if number_of_votes > 0 else 0
 
+# Classe che gestisce il registro degli studenti
 class Register:
     def __init__(self):
-        self.student = {}
-        self.ensure_csv_folder()
-        self.load_from_csv()
+        self.student = {}  # Dizionario degli studenti con ID come chiave
+        self.ensure_csv_folder()  # Crea la cartella csvFolder se non esiste
+        self.load_from_csv()  # Carica gli studenti dal file CSV
 
+    # Crea la cartella csvFolder se non esiste
     def ensure_csv_folder(self):
         if not os.path.exists("csvFolder"):
             os.makedirs("csvFolder")
 
+    # Aggiunge nuovi studenti al registro
     def add_student(self):
         n = int(input("Quanti studenti vuoi aggiungere ---> "))
         for _ in range(n):
@@ -86,8 +99,9 @@ class Register:
             new_id = max(self.student.keys(), default=0) + 1
             self.student[new_id] = student
             print("--- Studente aggiunto ---")
-        self.save_to_csv()
+        self.save_to_csv()  # Salva i dati nel file CSV
 
+    # Calcola la media complessiva della classe
     def med_of_class(self):
         if not self.student:
             print("Nessuno studente disponibile.")
@@ -95,6 +109,7 @@ class Register:
         tot = sum(s.med_all_vote() for s in self.student.values())
         print(f"La media complessiva di classe è: {tot / len(self.student):.2f}")
 
+    # Trova lo studente con la media più alta
     def best_student(self):
         if not self.student:
             print("Nessuno studente disponibile.")
@@ -103,12 +118,14 @@ class Register:
         student = best[1]
         print(f"Il miglior studente è {student.name} {student.surname} con una media di {student.med_all_vote()}")
 
+    # Stampa tutti gli studenti presenti nel registro
     def print_all_student(self):
         if not self.student:
             print("Nessuno studente registrato.")
         for key, val in self.student.items():
             val.print_info(key)
 
+    # Salva i dati degli studenti nel file CSV
     def save_to_csv(self):
         with open('csvFolder/alunni.csv', 'w', newline='') as file:
             writer = csv.writer(file)
@@ -121,6 +138,7 @@ class Register:
                     row.append(",".join(map(str, student.valutation[subject])))
                 writer.writerow(row)
 
+    # Carica i dati degli studenti dal file CSV
     def load_from_csv(self):
         if not file_exist():
             return
@@ -139,11 +157,14 @@ class Register:
                     student.valutation[subject] = votes
                 self.student[student_id] = student
 
+# Funzione principale del programma
 def main(): 
     register = Register()
     if not file_exist():
         print("--- Benvenuto/a! Aggiungiamo i tuoi studenti ---")
         register.add_student()
+
+    # Menu di interazione con l'utente
     while True:
         try:
             ch = int(input("--- Menu ---\n 1) Visualizza studenti\n 2) Aggiungi studenti \n 3) Aggiungi 1 voto per materia a uno studente\n"
@@ -183,5 +204,6 @@ def main():
         if input("Vuoi tornare al menu? s/n ---> ").strip().lower() == "n":
             break
 
+# Avvio del programma
 main()
 
