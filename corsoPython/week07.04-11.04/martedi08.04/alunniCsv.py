@@ -180,7 +180,6 @@ class Register:
                     student.valutation[subject] = votes
                 self.student[student_id] = student
     
-    
     #metodo per eliminare alunno
     def delete_student(self):
         n = int(input("Id studente da eliminare ---> "))
