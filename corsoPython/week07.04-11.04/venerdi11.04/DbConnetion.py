@@ -9,20 +9,9 @@ def db_connection(db_name):
   )
   cursor = conn.cursor()
 
-  # Controlla se il database esiste
-  cursor.execute("SHOW DATABASES")
-  db_exists = False
-  for (database,) in cursor:
-      if database == db_name:
-          db_exists = True
-          break
-
-  # Se non esiste, lo crea
-  if not db_exists:
-      cursor.execute(f"CREATE DATABASE {db_name}")
-      print(f"Database '{db_name}' creato.")
-  else:
-      print(f"Database '{db_name}' già esistente.")
+  # Crea il database solo se non esiste già
+  cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
+  #print(f"Database '{db_name}' verificato/creato.")
 
   # Chiude la connessione iniziale
   cursor.close()

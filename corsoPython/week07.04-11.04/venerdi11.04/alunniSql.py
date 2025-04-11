@@ -1,5 +1,5 @@
 import DbConnetion
-dbName = "StudentsRegister"
+dbName = "studentsregister"
 def create():
   conn = DbConnetion.db_connection(dbName)
   cursor = conn.cursor()
@@ -27,12 +27,17 @@ def create():
   conn.close()
     
 class Student():
-  def __init__(self,name,surname):
+  def __init__(self,id,name,surname):
     self.id = id
     self.name = name
     self.surname = surname
     self.votes = self.load_votes()
   
+  #raccolta voti studente
+  def load_votes():
+    myDb = DbConnetion.db_connection(dbName)
+    cursor = myDb.cursor()
+    cursor.execute("SELECT materia,voto FROM voti WHERE studente_id = %s", (self.id,))
   # Verifica se la materia inserita esiste nel dizionario dei voti
   def exist_valutation(self,key):
     pass
@@ -69,6 +74,13 @@ class Register():
   #get all student from db
   def load_all_students(self):
     myDb = DbConnetion.db_connection(dbName)
+    cursor = myDb.cursor()
+    cursor.execute("SELECT id, nome, cognome FROM studenti")
+    result = cursor.fetchall()
+    cursor.close()
+    myDb.close()
+    return [Student(*i) for i in result]
+
   # Permette l'aggiunta di uno o più studenti al registro
   def add_student(self):
     pass
@@ -82,9 +94,11 @@ class Register():
     pass
 
   # Stampa le informazioni di tutti gli studenti nel registro
-  def print_all_student(self):
-    pass
-      
+  def print_all_students(self):
+    print("--- Elenco degli studenti ---")
+    for student in self.student:
+      print(f"ID: {student.id}, Nome: {student.name}, Cognome: {student.surname}")
+
 # ---------- MAIN ----------
 def main():
   # Crea un'istanza del registro studenti
@@ -119,4 +133,8 @@ def main():
 
 #inizalizzazione programma
 create()
-main()
+DbConnetion.db_connection(dbName)
+register = Register()
+register.load_all_students()
+register.print_all_students()
+#main()
