@@ -6,4 +6,4 @@
 # numero identificativo, nome, abilità, xp(punti esperienza),peso
 # e altezza.
 # (Sul sistema API sono presenti poco più di 1000 pokemon)
-#esempio url https://pokeapi.co/api/v2/pokemon/id
+#esempio url https://pokeapi.co/api/v2/pokemon/id 1-1025
