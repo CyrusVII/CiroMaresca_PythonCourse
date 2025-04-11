@@ -37,7 +37,7 @@ class Student():
                     3:'storia',
                     4:"informatica"
                     }
-    
+  
   #raccolta voti studente
   def load_votes(self):
     myDb = DbConnetion.db_connection(dbName)
@@ -87,8 +87,8 @@ class Student():
 
     # Modifica un voto esistente
   
-  #edit valutation
-  def edit_valuation(self):
+  #edit/delete valutation
+  def edit_delete_valuation(self,query):
     # Mostra le materie
     while True:
       print("--- Lista Materie ---")
@@ -96,13 +96,12 @@ class Student():
         print(f"{key}) {val}")
       try:
         # Chiedi all'utente di scegliere una materia
-        subj = int(input("Inserisci numero materia da modificare ---> "))
+        subj = int(input("Inserisci numero materia ---> "))
         if subj in self.subject:
           materia = self.subject.get(subj)
           # Trova i voti per la materia scelta
           myDb = DbConnetion.db_connection(dbName)
           cursor = myDb.cursor()
-          query = "SELECT id, voto FROM voti WHERE studente_id = %s AND materia = %s"
           cursor.execute(query, (self.id, materia))
           result = cursor.fetchall()
 
@@ -130,52 +129,6 @@ class Student():
         print("Errore: Assicurati che il numero della materia e il voto siano validi.")
       except Exception as e:
         print(f"Errore nell'esecuzione: {e}")
-    myDb.close()
-    cursor.close()
-  
-  #delete valutation
-  def delete_valuation(self):
-    # Mostra le materie
-    while True:
-      print("--- Lista Materie ---")
-      for key, val in self.subject.items():
-        print(f"{key}) {val}")
-      try:
-        # Chiedi all'utente di scegliere una materia
-        subj = int(input("Inserisci numero materia da cancellare ---> "))
-        if subj in self.subject:
-          materia = self.subject.get(subj)
-          # Trova i voti per la materia scelta
-          myDb = DbConnetion.db_connection(dbName)
-          cursor = myDb.cursor()
-          query = "SELECT id, voto FROM voti WHERE studente_id = %s AND materia = %s"
-          cursor.execute(query, (self.id, materia))
-          result = cursor.fetchall()
-
-          if result:
-            # Visualizza i voti per la materia
-            print(f"--- Voti per {materia} ---")
-            for voto_id, voto in result:
-              print(f"ID: {voto_id}, Voto: {voto}")
-            
-            # Chiedi all'utente di scegliere un voto da cancellare
-            voto_id = int(input("Inserisci ID del voto da cancellare ---> "))
-            
-            # Elimina il voto nel database
-            delete_query = "DELETE FROM voti WHERE id = %s AND studente_id = %s"
-            cursor.execute(delete_query, (voto_id, self.id))
-            myDb.commit()
-            print("Voto cancellato con successo.")
-          else:
-              print(f"Nessun voto trovato per la materia {materia}.")
-          
-          break
-        else:
-            print("Materia inserita non valida.")
-      except ValueError:
-          print("Errore: Assicurati che il numero della materia sia valido.")
-      except Exception as e:
-          print(f"Errore nell'esecuzione: {e}")
     cursor.close()
     myDb.close()
 
@@ -189,7 +142,7 @@ class Register():
   def reload_info(self):
     # Ricarica gli studenti dopo l'inserimento
       self.student = self.load_all_students()
-      
+  
   # Funzione per verificare se un id esiste
   def student_exists(self, student_id):
     return any(student.id == student_id for student in self.student)
@@ -242,7 +195,8 @@ class Register():
       idStudents = int(input("Inserisci id studente per modificare voto ---> "))
       if self.student_exists(idStudents):
         student = self.get_student_by_id(idStudents)
-        student.edit_valuation()
+        query = "SELECT id, voto FROM voti WHERE studente_id = %s AND materia = %s"
+        student.edit_delete_valuation(query)
         self.reload_info()
       else:
         print("Studente non trovato")
@@ -256,7 +210,8 @@ class Register():
       idStudents = int(input("Inserisci id studente per cancellare voto ---> "))
       if self.student_exists(idStudents):
         student = self.get_student_by_id(idStudents)
-        student.delete_valuation()
+        query = "DELETE FROM voti WHERE id = %s AND studente_id = %s"
+        student.edit_delete_valuation(query)
         self.reload_info()
       else:
         print("Studente non trovato")
@@ -301,12 +256,42 @@ class Register():
     except Exception as e:
       print(f"Errore nell'eliminazione dello studente: {e}")
 
+  # Modifica nome e cognome dello studente
+  def modify_student_name_surname(self):
+    try:
+      print("--- Menu Modifica Studenti ---")
+      idStudents = int(input("Inserisci id studente per modificare nome e cognome ---> "))
+      if self.student_exists(idStudents):
+        student = self.get_student_by_id(idStudents)
+        
+        # Chiedi il nuovo nome e cognome
+        new_name = input(f"Inserisci nuovo nome per {student.name}: ")
+        new_surname = input(f"Inserisci nuovo cognome per {student.surname}: ")
+        
+        # Aggiorna i dati nel database
+        myDb = DbConnetion.db_connection(dbName)
+        cursor = myDb.cursor()
+        query = "UPDATE studenti SET nome = %s, cognome = %s WHERE id = %s"
+        cursor.execute(query, (new_name, new_surname, idStudents))
+        myDb.commit()
+        cursor.close()
+        myDb.close()
+        
+        # Ricarica le informazioni
+        self.reload_info()
+        print("Nome e cognome aggiornati con successo.")
+      else:
+        print("Studente non trovato.")
+    except Exception as e:
+      print(f"Errore nell'aggiornamento dei dati: {e}")
+
 # ---------- MAIN ----------
 def main():
   # Crea un'istanza del registro studenti
   register = Register()
   while True:
-    ch = int(input("--- Menu ---\n 1) Visualizza studenti\n 2) Aggiungi studenti \n 3) Elimina studente \n 4) Add vote \n 5) Modify vote \n 6) Delete vote \n 7) Exit \n ---> "))
+    ch = int(input("--- Menu ---\n 1) Visualizza studenti\n 2) Aggiungi studenti \n 3) Elimina studente \n 4) Add vote \n 5) Modify vote" 
+                    "\n 6) Delete vote \n 7) Modify name surname \n 8) Exit \n ---> "))
     
     # Gestione delle opzioni del menu
     match ch:
@@ -322,6 +307,8 @@ def main():
         register.modify_Vote()
       case 6:
         register.delete_Vote()
+      case 7:
+        register.modify_student_name_surname()
       case _: 
         print('Fine programma...')
         break
