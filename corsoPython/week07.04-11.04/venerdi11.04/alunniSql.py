@@ -27,6 +27,7 @@ def create():
   conn.close()
     
 class Student():
+  
   def __init__(self,id,name,surname):
     self.id = id
     self.name = name
