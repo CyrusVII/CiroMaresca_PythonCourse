@@ -63,10 +63,11 @@ queryAlterTbUtenti = "ALTER TABLE utenti MODIFY ID AUTO_INCREMENT"
 # myCursor.execute(queryAlterTbUtenti)
 
 #per passare piu valori alla volta
-queryInsertUtenti1 = "INSERT INTO utenti(NAME, ADRESS) VALUES(%s, %s)"
+queryInsertUtenti1 = "INSERT INTO utenti(NAME, ADRESS) VALUES"
 # Dati dell'utente da inserire: nome e indirizzo
 val = [("Pippo", "Via Roma"),
        ("Maria","Via napoli")]
+
 # Esegue l'inserimento di piu dati usando il cursore
 myCursor.executemany(queryInsertUtenti1, val)
 # Salva le modifiche al database (rende permanente l'inserimento)
