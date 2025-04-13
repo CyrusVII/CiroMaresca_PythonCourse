@@ -52,7 +52,9 @@ def print_data(response):
                 case 2:
                   day_calcolator(meteo, ch)  
                 case 3:
-                  day_calcolator(meteo, ch)  
+                  day_calcolator(meteo, ch) 
+                case 4:
+                    break
                 case _:
                   print("Opzione non valida, scegli 1, 2, 3")
                   continue
