@@ -70,6 +70,7 @@ def getData(nomeSquadra):
 def simula_partita(squadra1, squadra2):
     nome1 = squadra1['Allenatore'].nome_squadra
     nome2 = squadra2['Allenatore'].nome_squadra
+    
     print(f"\n🔥 Inizia la partita!\n")
 
     gol_squadra1 = 0
@@ -80,17 +81,21 @@ def simula_partita(squadra1, squadra2):
     
     coachB1 = squadra1["Allenatore"].percAnni()
     coachB2 = squadra2["Allenatore"].percAnni()
+    
+    bonus_ass1 = sum([a.calcola_bonus() for a in squadra1.get("Assistenti", [])])
+    bonus_ass2 = sum([a.calcola_bonus() for a in squadra2.get("Assistenti", [])])
+    
     for i in range(5):  # 5 azioni per squadra
-        if random.random() < 0.5 + coachB1:
-            marcatore = random.choice([p for k, p in squadra1.items() if isinstance(k, int)])
-            gol_squadra1 += 1
-            marcatori1.append(marcatore.nome)
-            print(f"⚽ Gol di {marcatore.nome} per {nome1}!")
-        if random.random() < 0.5 + coachB2:
-            marcatore = random.choice([p for k, p in squadra2.items() if isinstance(k, int)])
-            gol_squadra2 += 1
-            marcatori2.append(marcatore.nome)
-            print(f"⚽ Gol di {marcatore.nome} per {nome2}!")
+      if random.random() < 0.5 + coachB1 + bonus_ass1:
+        marcatore = random.choice([p for k, p in squadra1.items() if isinstance(k, int)])
+        gol_squadra1 += 1
+        marcatori1.append(marcatore.nome)
+        print(f"⚽ Gol di {marcatore.nome} per {nome1}!")
+      if random.random() < 0.5 + coachB2 + bonus_ass2:
+        marcatore = random.choice([p for k, p in squadra2.items() if isinstance(k, int)])
+        gol_squadra2 += 1
+        marcatori2.append(marcatore.nome)
+        print(f"⚽ Gol di {marcatore.nome} per {nome2}!")
 
     print("\n📋 Risultato finale:")
     print(f"{nome1} {gol_squadra1} - {gol_squadra2} {nome2}")
