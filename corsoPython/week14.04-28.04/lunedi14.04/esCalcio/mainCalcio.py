@@ -20,6 +20,7 @@ import giocatore as g
 import allenatore as a
 import assistente as ass
 import random
+import time
 
 nomeDb = "calcio"
 
@@ -86,12 +87,15 @@ def simula_partita(squadra1, squadra2):
     bonus_ass2 = sum([a.calcola_bonus() for a in squadra2.get("Assistenti", [])])
     
     for i in range(5):  # 5 azioni per squadra
+    
       if random.random() < 0.5 + coachB1 + bonus_ass1:
+        time.sleep(0.6)
         marcatore = random.choice([p for k, p in squadra1.items() if isinstance(k, int)])
         gol_squadra1 += 1
         marcatori1.append(marcatore.nome)
         print(f"⚽ Gol di {marcatore.nome} per {nome1}!")
       if random.random() < 0.5 + coachB2 + bonus_ass2:
+        time.sleep(0.6)
         marcatore = random.choice([p for k, p in squadra2.items() if isinstance(k, int)])
         gol_squadra2 += 1
         marcatori2.append(marcatore.nome)
