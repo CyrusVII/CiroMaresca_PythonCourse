@@ -17,26 +17,26 @@ class Library:
 
   def create_book(self):
     while True:
-      try:
-        while True:
-          isbn = int(input("Inserisci codice identificativo (ISBN): "))
-          if not self.isbn_controller(isbn):
-            break
-          print("ISBN già presente, riprova.")
-      except:
-          print("Dato inserito non valido, riprova.")  # fine controllo isbn
-
+      while True:
+        try:
+            isbn = int(input("Inserisci codice identificativo (ISBN): "))
+            if not self.isbn_controller(isbn):
+              break
+            print("ISBN già presente, riprova.")
+        except:
+            print("Dato inserito non valido, riprova.")  # fine controllo isbn
+      
       titolo = input('Inserisci titolo: ').lower().strip().capitalize()
       autore = input('Inserisci autore: ')
 
-      try:
-        while True:
-          nPag = int(input('Inserisci numero di pagine: '))
-          break
-      except:
-        print("Dato inserito non valido, riprova.")  # fine convalida pagine
+      while True:
+        try:
+            nPag = int(input('Inserisci numero di pagine: '))
+            break
+        except:
+          print("Dato inserito non valido, riprova.")  # fine convalida pagine
 
-      l = book.Book(titolo, autore, nPag, isbn)  # Passiamo anche l'isbn
+      l = book.Book(isbn,titolo, autore, nPag)  # Passiamo anche l'isbn
       self.add_book(l, isbn)
 
       if input("Vuoi aggiungere ancora un libro? (s/n) ---> ").lower().strip() == 'n':
@@ -50,20 +50,26 @@ class Library:
       isbn = int(input("Inserisci codice isbn per cancellare il libro : "))
       if self.isbn_controller(isbn):
         self.all_books.pop(isbn)
+        print("Libro cancellato")
       else:
         print("Libro non trovato")
     except:
       print("input non valido")
   
   def serch_book(self):
-    title = input("Inserisci titolo libro").lower().strip()
+    title = input("Inserisci titolo libro ---> ").lower().strip()
+    trovati = False
     print("--- Libri con questo titolo ---")
     for val in self.all_books.values():
-      if title == val.titolo.lower():
-        print(val.print_book())
-        break
+        if title == val.titolo.lower().strip():
+            print(val.print_book())
+            trovati = True
+    if not trovati:
+        print("Nessun libro trovato con questo titolo.")
+
       
 
   def print_library(self):
+    print("--- La libreria ---")
     for isbn, libro in self.all_books.items():
       print(f"{libro.print_book()}")
