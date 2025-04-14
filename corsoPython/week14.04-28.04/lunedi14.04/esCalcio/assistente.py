@@ -9,8 +9,9 @@ class Assistente(ms.MembroSquadre):
     # Base: ogni anno dà 0.005 (0.5%), massimo 5%
       bonus = min(self.anni_di_esperienza * 0.005, 0.05)
       # Specializzazione extra
-      if self.specializzazione.lower() == "analista di gioco":
-          bonus += 0.01  # +1% se analista
-      elif self.specializzazione.lower() == "fisioterapista":
-          bonus += 0.005  # +0.5% se fisio
-      return bonus
+      match self.specializzazione.lower():
+        case "analista di gioco":
+          return 0.01  # +1% se analista
+        case"fisioterapista":
+          return 0.005  # +0.5% se fisio
+      
