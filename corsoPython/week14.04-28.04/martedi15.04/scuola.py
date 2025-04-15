@@ -55,7 +55,7 @@ class Persona:
     def presentazione(self):
         print(f"Ciao, mi chiamo {self.__nome} e ho {self.__eta} anni.")
 
-# 2. Classe Studente (Sottoclasse di Persona)
+# 2. Classe Studente 
 class Studente(Persona):
     def __init__(self, nome, eta, voti):
         super().__init__(nome, eta)  
@@ -80,7 +80,7 @@ class Studente(Persona):
         media = self.calcola_media()
         print(f"Ciao, mi chiamo {self.get_nome()} e ho {self.get_eta()} anni. La mia media dei voti è {media:.2f}.")
 
-# 3. Classe Professore (Sottoclasse di Persona)
+# 3. Classe Professore 
 class Professore(Persona):
     def __init__(self, nome, eta, materia):
         super().__init__(nome, eta)  
