@@ -22,22 +22,19 @@ class MetodoPagamento:
 class CartaDiCredito(MetodoPagamento):
     def effettua_pagamento(self, importo):
         commissione = importo * 0.05  
-        totale = importo + commissione
-        print(f"Pagamento di {importo}€ + 5% di commissione ({commissione:.2f}€): Totale pagato {totale:.2f}€ con Carta di Credito.")
+        print(f"Pagamento di {importo}€ + 5% di commissione ({commissione:.2f}€): Totale pagato {importo + commissione:.2f}€ con Carta di Credito.")
 
 # Sottoclasse: PayPal
 class PayPal(MetodoPagamento):
     def effettua_pagamento(self, importo):
         commissione = importo * 0.02  
-        totale = importo + commissione
-        print(f"Pagamento di {importo}€ + 5% di commissione ({commissione:.2f}€): Totale pagato {totale:.2f}€ con PayPal.")
+        print(f"Pagamento di {importo}€ + 2% di commissione ({commissione:.2f}€): Totale pagato {importo + commissione:.2f}€ con PayPal.")
 
 # Sottoclasse: Bonifico Bancario
 class BonificoBancario(MetodoPagamento):
     def effettua_pagamento(self, importo):
         commissione = importo * 0.04  
-        totale = importo + commissione
-        print(f"Pagamento di {importo}€ + 5% di commissione ({commissione:.2f}€): Totale pagato {totale:.2f}€ con Bonifico.")
+        print(f"Pagamento di {importo}€ + 4% di commissione ({commissione:.2f}€): Totale pagato {importo + commissione:.2f}€ con Bonifico.")
 
 # Classe che gestisce i pagamenti, non importa quale metodo specifico viene usato
 class GestorePagamenti:
