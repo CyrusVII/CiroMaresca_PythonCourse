@@ -9,10 +9,10 @@ class Matrici:
       self.sommaSpeciale = 0
     
     def crea_linspace(self):
-      self.matrice_1 = np.linspace(0, 10, self.numCasuali)
+      self.matrice_1 = np.round(np.linspace(0, 10, self.numCasuali),3)
     
     def crea_random(self):
-      self.matrice_2 = np.random.rand(self.numCasuali)
+      self.matrice_2 = np.round(np.random.rand(self.numCasuali),3)
     
     def somma_elementi(self):
       if len(self.matrice_1) > 9 and len(self.matrice_2) > 9:
@@ -35,7 +35,6 @@ class Matrici:
       print("-----")
       print("Somma Speciale (elementi > 5):", self.sommaSpeciale)
 
-
 def menu(n):
   print("\n-----\nSeleziona un'opzione:")
   print(f"1. Creiamo un array di {n} numeri equidistanti tra 0 e 10.")
@@ -43,12 +42,12 @@ def menu(n):
   print("3. Somma elemento per elemento dei due array.")
   print("4. Calcolo somma degli elementi del nuovo array maggiori di 5")
   print("5. Stampa tutto.")
-  print("6. Esci.")
+  print("6. Carica nel Db")
+  print("7. Esci.")
   
   scelta = int(input("---> "))
   print("-----\n")
   return scelta
-
 
 def main():
   try:
