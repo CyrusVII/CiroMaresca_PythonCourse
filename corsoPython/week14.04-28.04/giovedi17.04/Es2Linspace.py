@@ -1,20 +1,21 @@
 import numpy as np
 
 class Matrici:
-    def __init__(self):
+    def __init__(self,numCasuali):
+      self.numCasuali = numCasuali 
       self.matrice_1 = []
       self.matrice_2 = []
       self.somma = []
       self.sommaSpeciale = 0
     
     def crea_linspace(self):
-      self.matrice_1 = np.linspace(0, 10, 50)
+      self.matrice_1 = np.linspace(0, 10, self.numCasuali)
     
     def crea_random(self):
-      self.matrice_2 = np.random.rand(50)
+      self.matrice_2 = np.random.rand(self.numCasuali)
     
     def somma_elementi(self):
-      if len(self.matrice_1) == 50 and len(self.matrice_2) == 50:
+      if len(self.matrice_1) > 9 and len(self.matrice_2) > 9:
         self.somma = self.matrice_1 + self.matrice_2
       else:
         print("Devi prima creare entrambi gli array.")
@@ -35,10 +36,10 @@ class Matrici:
       print("Somma Speciale (elementi > 5):", self.sommaSpeciale)
 
 
-def menu():
+def menu(n):
   print("\n-----\nSeleziona un'opzione:")
-  print("1. Creiamo un array di 50 numeri equidistanti tra 0 e 10.")
-  print("2. Array di 50 numeri casuali compresi tra 0 e 1.")
+  print(f"1. Creiamo un array di {n} numeri equidistanti tra 0 e 10.")
+  print(f"2. Array di {n} numeri casuali compresi tra 0 e 1.")
   print("3. Somma elemento per elemento dei due array.")
   print("4. Calcolo somma degli elementi del nuovo array maggiori di 5")
   print("5. Stampa tutto.")
@@ -50,10 +51,18 @@ def menu():
 
 
 def main():
-  matrici = Matrici()
+  try:
+    numCasuale = int(input("Inserisci il numero con qui andremo a dare il range alle liste (Min-10) ---> "))
+    if numCasuale < 10:
+      raise Exception("Numero inserito non valido verra impostato 10")
+  except Exception as e:
+    print(e)
+    numCasuale = 10
+
+  matrici = Matrici(numCasuale)
   
   while True:
-    ch = menu()
+    ch = menu(matrici.numCasuali)
     match ch:
       case 1:
         matrici.crea_linspace()
