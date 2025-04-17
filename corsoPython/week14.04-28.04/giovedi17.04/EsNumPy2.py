@@ -18,12 +18,17 @@
 # Esercitarsi nell'utilizzo dello slicing di NumPy per estrarre e modificare sottoarray specifici da un array più grande.
 
 import numpy as np
+#creo u n array con numeri random da 10 a 50 di grandezza 20
 arr = np.random.randint(10, 51, size=20) 
+#prendo i primi 10 numeri dell array
 arrPrimiNumeri = arr[:10]
+#prendo gli ultimi 4 numeri dell array
 arrUltimi = arr[16:]
+#prendo un numero ogni 3 partendo dal 3 numero dell array
 arrAlternato  = arr[2: :3]
 #prendo l array originale e modifico i numeri da 5 a 9 in 99
 arrModificato = arr; arrModificato[5:10] = 99
+#tutte le stampe
 print("--- Array comleto ---\n",arr)
 print("--- Primi 10 numeri ---\n", arrPrimiNumeri)
 print("--- Ultimi 5 numeri ---\n", arrUltimi)
