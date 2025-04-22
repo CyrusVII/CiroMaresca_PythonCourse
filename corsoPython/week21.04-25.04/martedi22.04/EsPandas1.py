@@ -32,7 +32,7 @@ def take_data():
   print("\nTipi di dati:\n", df.dtypes)
 
   # Statistiche descrittive per le colonne numeriche
-  print("\nStatistiche descrittive:\n", df.describe())
+  print("\nStatistiche descrittive:\n", df.describe().round(2))
   
   # Rimuoviamo duplicati
   df = df.drop_duplicates()
