@@ -11,6 +11,7 @@
 # 8. Visualizzare il numero di vendite per ogni città.
 
 import pandas as pd
+import numpy as np
 
 # Aggiunta colonna "Totale Vendite"
 def add_column_tot_sales(df):
@@ -99,12 +100,21 @@ def personalize_pivot(df):
     print("Error ---> ", e)
     
 def menu():
+  # Liste di riferimento
+  prodotti = ['Mouse', 'Tastiera', 'Monitor', 'Webcam']
+  città = ['Roma', 'Milano', 'Napoli', 'Torino', 'Bologna']
+
+  # Numero di righe da generare
+  num_righe = 15
+
+  # Generazione casuale dei dati
   dati = {
-    'Prodotto': ['Mouse', 'Tastiera', 'Monitor', 'Mouse', 'Monitor', 'Tastiera', 'Webcam', 'Mouse', 'Monitor', 'Webcam','Webcam'],
-    'Quantita': [2, 1, 3, 4, 1, 2, 5, 3, 2, 1, 1],
-    'Prezzo Unitario': [20.0, 45.0, 150.0, 20.0, 155.0, 40.0, 30.0, 22.0, 149.0, 35.0,1002],
-    'Citta': ['Roma', 'Milano', 'Napoli', 'Roma', 'Torino', 'Milano', 'Bologna', 'Napoli', 'Torino', 'Roma', 'Roma']
+      'Prodotto': np.random.choice(prodotti, size=num_righe),
+      'Quantita': np.random.randint(1, 6, size=num_righe),  # da 1 a 5 inclusi
+      'Prezzo Unitario': np.round(np.random.uniform(15.0, 1000.0, size=num_righe), 2),
+      'Citta': np.random.choice(città, size=num_righe)
   }
+  
   df = pd.DataFrame(dati)
   add_column_tot_sales(df)
   
