@@ -6,7 +6,7 @@ def db_connection(db_name):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password=""
+        password = ""
     )
     cursor = conn.cursor()
 
@@ -28,3 +28,4 @@ def db_connection(db_name):
     return myDB
   except:
     pass#"Errore di conessione",False
+  

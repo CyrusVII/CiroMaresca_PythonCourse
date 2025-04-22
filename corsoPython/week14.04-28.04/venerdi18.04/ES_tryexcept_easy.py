@@ -11,6 +11,10 @@ def esempio_basilare():
     except Exception as e:
         # Cattura tutte le eccezioni ereditate da Exception
         print(f"Errore generico: {e}")
+    else:
+        print("Vado solo se non ci sono errori")
+    finally:
+        print("Vado sempre")
 
 if __name__ == "__main__":
     esempio_basilare()
