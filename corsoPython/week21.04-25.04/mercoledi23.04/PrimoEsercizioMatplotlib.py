@@ -31,7 +31,7 @@ class Temperature:
   
   # Metodo per calcolare la temperatura minima
   def min_temp(self):
-    min = self.df['temperature'].mean()
+    min = self.df['temperature'].min()
     print("Temperatura minima: ",min)
     return min
 
@@ -49,6 +49,10 @@ class Temperature:
   
   #grafioc temp giornaliera
   def grafico_temp_giornaliero(self):
+    maxx = self.max_temp()
+    min = self.min_temp()
+    avg = self.avg_temp()
+    med = self.median_temp()
     # Crea una nuova figura per il grafico
     plt.figure(figsize=(10, 6))  # Imposta la dimensione della figura (10x6 pollici)
     
@@ -59,6 +63,13 @@ class Temperature:
     # color: colore della linea
     # marker='o': usa un marker a forma di cerchio per ogni punto
     plt.plot(self.df['date'], self.df['temperature'], label='Temperature giornaliere', color='b', marker='o')
+    
+    # Aggiungi linee tratteggiate per la temperatura massima, minima, media e mediana
+    plt.axhline(y=maxx, color='r', linestyle='--', label=f'Temperatura massima: {maxx}°C')
+    plt.axhline(y=min, color='g', linestyle='--', label=f'Temperatura minima: {min}°C')
+    plt.axhline(y=avg, color='y', linestyle='--', label=f'Temperatura media: {avg:.2f}°C')
+    plt.axhline(y=med, color='m', linestyle='--', label=f'Mediana Temperatura: {med}°C')
+    
     # Imposta il titolo del grafico
     plt.title('Andamento delle Temperature Giornalieri')
     # Aggiungi etichetta all'asse X (Data)
