@@ -112,7 +112,8 @@ def menu():
     print("4. Converti 'Churn' in valori numerici e normalizzare i dati numerici")
     print("5. Crea DataSet Normalizzato")
     print("6. Mostra il dataset originale")
-    print("7. Esci")
+    print("7. Mostra il dataset normalizzato")
+    print("8. Esci")
     scelta = input("Scegli un'opzione (1-6): ")
 
     match scelta:
@@ -132,7 +133,9 @@ def menu():
         dc.mostra_dati_normalize()
       case "6":
         dc.mostra_dati()
-      case "7":
+      case "8":
+        dc.mostra_dati_normalize()
+      case "8":
         print("Uscita in corso...")
         break
       case _:
