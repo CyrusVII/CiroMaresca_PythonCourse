@@ -42,25 +42,21 @@ class Data:
     return dfNorm
 
   def grafico(self):
-    # Creiamo la figura con due sotto-grafici 3D per il confronto
-    fig = plt.figure(figsize=(14, 7))
+    # Impostazioni per il grafico
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
-    # Grafico per i dati originali
-    ax1 = fig.add_subplot(121, projection='3d')
-    ax1.scatter(self.df['Altezza'], self.df['Peso'], self.df['Età'], c=self.df['Età'], cmap='viridis')
-    ax1.set_xlabel('Altezza')
-    ax1.set_ylabel('Peso')
-    ax1.set_zlabel('Età')
-    ax1.set_title('Dati Originali', pad=5)  
-
-    # Grafico per i dati normalizzati
-    ax2 = fig.add_subplot(122, projection='3d')
-    ax2.scatter(self.dfNormalize['Altezza'], self.dfNormalize['Peso'], self.dfNormalize['Età'], c=self.dfNormalize['Età'], cmap='viridis')
-    ax2.set_xlabel('Altezza Normalizzata')
-    ax2.set_ylabel('Peso Normalizzato')
-    ax2.set_zlabel('Età Normalizzata')
-    ax2.set_title('Dati Normalizzati', pad=5)
-
+    # Grafico dei dati originali
+    sns.scatterplot(x=self.df['Altezza'], y=self.df['Peso'], hue=self.df['Età'], palette='viridis', ax=axes[0])
+    axes[0].set_title('Dati Originali')
+    axes[0].set_xlabel('Altezza (cm)')
+    axes[0].set_ylabel('Peso (kg)')
+    
+    # Grafico dei dati normalizzati
+    sns.scatterplot(x=self.dfNormalize['Altezza'], y=self.dfNormalize['Peso'], hue=self.dfNormalize['Età'], palette='viridis', ax=axes[1])
+    axes[1].set_title('Dati Normalizzati')
+    axes[1].set_xlabel('Altezza (Normalizzata)')
+    axes[1].set_ylabel('Peso (Normalizzato)')
+    
     plt.tight_layout()
     plt.show()
 
