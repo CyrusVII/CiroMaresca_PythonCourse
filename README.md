@@ -61,13 +61,6 @@ Ogni settimana aggiungo nuove cartelle con il materiale aggiornato delle lezioni
 
 ---
 
-## ⭐ Contribuisci o Seguimi
-
-Se ti è utile, metti una ⭐ alla repo!  
-Hai suggerimenti o vuoi contribuire? Scrivimi!
-
----
-
 ## 📩 Contatti
 
 👨‍💻 **Autore**: Ciro Maresca  
