@@ -1,4 +1,5 @@
 # Importiamo la libreria seaborn per il caricamento dei dati e la creazione del grafico
+#familiarizza con i grafici heatmaps , pair plots, facet grids e violin plots 
 import seaborn as sns
 import matplotlib.pyplot as plt
 

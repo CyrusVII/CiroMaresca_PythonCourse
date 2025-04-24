@@ -57,6 +57,7 @@ class Data:
     axes[1].set_xlabel('Altezza (Normalizzata)')
     axes[1].set_ylabel('Peso (Normalizzato)')
     
+    sns.set_theme(style="darkgrid")
     plt.tight_layout()
     plt.show()
 
