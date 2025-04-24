@@ -131,6 +131,8 @@ class GraficGenerator():
     axs[0].set_ylabel('Numero di Visitatori')
     axs[0].legend()
     axs[0].grid(True)
+    axs[0].xaxis.set_major_locator(mdates. MonthLocator(interval=1))  # ogni mese
+    axs[0].xaxis.set_major_formatter(mdates.DateFormatter('%d-%b-%y'))     # formato tipo 24-Apr
 
     # === SECONDO GRAFICO: Media mensile ===
     media_mensile = Generator.med_visitatori_mese(df)
@@ -141,6 +143,8 @@ class GraficGenerator():
     axs[1].set_ylabel('Numero di Visitatori')
     axs[1].legend()
     axs[1].grid(True)
+    axs[1].xaxis.set_major_locator(mdates. MonthLocator(interval=1))  # ogni mese
+    axs[1].xaxis.set_major_formatter(mdates.DateFormatter('%d-%b-%y'))     # formato tipo 24-Apr
 
     # Ottimizzazione layout per evitare sovrapposizioni
     plt.tight_layout()
