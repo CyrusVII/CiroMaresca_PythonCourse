@@ -21,22 +21,23 @@ class Generator():
   
   @staticmethod
   def data_generator():
-    # Genera una serie di date (365 giorni fino ad oggi)
-    date = pd.date_range(end=pd.Timestamp.today().date(), periods=365, freq='D')
-    dati = []
+    # Genera una serie di 365 date fino ad oggi
+    date = pd.date_range(end=pd.Timestamp.today().normalize(), periods=365)
 
-    # Trend lineare crescente da 0 a 1000 per simulare l'aumento della popolarità del parco
+    # Trend lineare da 0 a 1000
     trend = np.linspace(0, 1000, len(date))
 
-    for i, d in enumerate(date):
-      base = np.random.randint(1500, 2501)  # Valore base casuale tra 1500 e 2500
-      visitatori = base + trend[i]          # Aggiunta del trend
-      dati.append(int(visitatori))
-      
-    # Creazione del DataFrame con le date come indice
+    # Valori base con media 2000 e deviazione standard 500
+    base = np.random.normal(loc=2000, scale=500, size=len(date))
+    base = np.clip(base, 1000, None)  
+
+    # Somma del trend al valore base
+    visitatori = base + trend
+
+    # Crea il DataFrame
     df = pd.DataFrame({
-      'visitatori': dati
-    }, index=date)
+      'visitatori': visitatori.astype(int)
+      }, index=date)
 
     print(df)
     return df
