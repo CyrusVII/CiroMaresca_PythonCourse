@@ -1,73 +1,67 @@
-# 🐍 Python Course – Appunti ed Esercizi Giornalieri
+🐍 Python Course – Appunti ed Esercizi Giornalieri
+Benvenuto nella mia repository del corso di Python, Data Analysis e Machine Learning!
+Qui trovi tutti gli argomenti trattati giorno per giorno, con esercizi, codice, appunti e approfondimenti.
+L’organizzazione segue il formato: week_data/gg-mm-aaaa/ così ogni cartella rappresenta una giornata di lezione.
 
-Benvenuto nella mia repository del corso di **Python, Data Analysis e Machine Learning**!  
-Qui trovi **tutti gli argomenti trattati giorno per giorno**, con **esercizi, codice, appunti e approfondimenti**.  
-L’organizzazione segue il formato: `week_data/gg-mm-aaaa/` così ogni cartella rappresenta una giornata di lezione.
+📘 Autore: Ciro Maresca
+📅 Corso attivo dal: 27/03/2025
+📂 Struttura: settimane → giorni → materiali
 
-📘 **Autore**: Ciro Maresca  
-📅 **Corso attivo dal**: 27/03/2025  
-📂 **Struttura**: settimane → giorni → materiali
-
----
-
-## 🧭 Struttura della repository
-
+🧭 Struttura della repository
 Ogni cartella giornaliera contiene:
-- `esercizi.py` o `.ipynb`: esercitazioni fatte a lezione  
-- `appunti.md` o `.txt`: spiegazioni, esempi, note  
-- file aggiuntivi: dataset, script SQL, ecc.
 
----
+esercizi.py o .ipynb: esercitazioni fatte a lezione
 
-## 📚 Argomenti trattati
+appunti.md o .txt: spiegazioni, esempi, note
 
-- **Python - Le Basi**
-  - Variabili, condizioni, cicli
-  - Funzioni
-  - OOP: classi, ereditarietà, metodi
+file aggiuntivi: dataset, script SQL, ecc.
 
-- **Database**
-  - SQL base e avanzato
-  - MySQL + connessione da Python
+📚 Argomenti trattati
 
-- **Analisi Dati**
-  - `NumPy`: array, operazioni, funzioni
-  - `pandas`: DataFrame, manipolazione dati, file CSV/Excel
+Python - Le Basi
+Variabili, condizioni, cicli
 
-- **Machine Learning**
-  - Concetti base
-  - Algoritmi introduttivi (es. regressione)
-  - Lavoro su dataset reali
+Funzioni
 
----
+OOP: classi, ereditarietà, metodi
 
-## 🛠️ Tecnologie & Strumenti
+Database
+SQL base e avanzato
 
-- Python 3.x  
-- Jupyter Notebook  
-- MySQL  
-- Librerie: `NumPy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`
+MySQL + connessione da Python
 
----
+Analisi Dati
+NumPy: array, operazioni, funzioni
 
-## 🚧 Work in progress
+pandas: DataFrame, manipolazione dati, file CSV/Excel
 
-> La repo è in **costante aggiornamento**!  
-Ogni settimana aggiungo **nuove cartelle** con il materiale aggiornato delle lezioni.
+Visualizzazione Dati:
 
----
+matplotlib: grafici base e personalizzati
 
-## ⭐ Contribuisci o Seguimi
+seaborn: grafici statistici e visualizzazioni avanzate
 
-Se ti è utile, metti una ⭐ alla repo!  
-Hai suggerimenti o vuoi contribuire? Scrivimi!
+Machine Learning
+Concetti base
 
----
+Algoritmi introduttivi (es. regressione)
 
-## 📩 Contatti
+Lavoro su dataset reali
 
-- 👨‍💻 Autore: Ciro Maresca  
-- LinkTree : https://linktr.ee/CiroMaresca
+🛠️ Tecnologie & Strumenti
 
+Python 3.x
 
+Jupyter Notebook
 
+MySQL
+
+Librerie: NumPy, pandas, matplotlib, seaborn, scikit-learn
+
+🚧 Work in progress
+La repo è in costante aggiornamento!
+Ogni settimana aggiungo nuove cartelle con il materiale aggiornato delle lezioni.
+
+📩 Contatti
+👨‍💻 Autore: Ciro Maresca
+🔗 LinkTree: https://linktr.ee/CiroMaresca
