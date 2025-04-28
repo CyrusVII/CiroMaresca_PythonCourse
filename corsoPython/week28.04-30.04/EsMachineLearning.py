@@ -34,7 +34,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )  # Dividiamo i dati in training (70%) e test (30%), assicurandoci che le classi siano bilanciate
 
 # 4. Applica l'algoritmo DecisionTreeClassifier
-clf = DecisionTreeClassifier(random_state=42)  # Creiamo un albero decisionale, fissando il random_state per riproducibilità
+clf = DecisionTreeClassifier(random_state=73)  # Creiamo un albero decisionale, fissando il random_state per riproducibilità
 clf.fit(X_train, y_train)  # Alleniamo l'albero decisionale con i dati di training
 
 # 5. Valuta la performance del modello utilizzando classification_report
