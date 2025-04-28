@@ -18,7 +18,7 @@ print(f"Valori scelti di n_neighbors: {n_neighbors_list}")
 for n_neighbors in n_neighbors_list:
   print(f"\nTest per n_neighbors = {n_neighbors}")
   for i in range(10):  # 10 prove con random_state diversi
-    rand_state = random.randint(0, 100)
+    rand_state = random.randint(9, 100)
 
     # Suddividere il dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=rand_state)
