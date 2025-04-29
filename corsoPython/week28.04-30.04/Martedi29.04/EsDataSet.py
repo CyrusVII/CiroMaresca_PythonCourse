@@ -241,6 +241,20 @@ def alive_prediction(df):
   plt.ylabel('Valore Reale')
   plt.show()
 
+
+# == Box plot ===
+def boxplot_features(df):
+  # Escludi colonne categoriche non numeriche se presenti
+  numeric_df = df.select_dtypes(include='number')
+  
+  # Boxplot per ogni feature numerica
+  plt.figure(figsize=(12, 6))
+  sns.boxplot(data=numeric_df)
+  plt.title('Boxplot di tutte le feature numeriche')
+  plt.xticks(rotation=45)
+  plt.tight_layout()
+  plt.show()
+
 # === MENU ===
 def menu():
   df = take_data()
@@ -255,6 +269,7 @@ def menu():
     print("6. Probabilita di sopravvivenza per classe")
     print("7. Sopravvivenza per fascie di eta")
     print("8. Prediction")
+    print("9. Box Plot")
     ch = input("---> ")
     match ch:
       case "0":
@@ -276,6 +291,8 @@ def menu():
         age_prob_alive(df)
       case "8":
         alive_prediction(df)
+      case "9":
+        boxplot_features(df)
 
 # === AVVIO ===
 if __name__ == "__main__":
