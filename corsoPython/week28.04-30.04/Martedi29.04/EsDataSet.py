@@ -29,10 +29,9 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV,train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, confusion_matrix,classification_report
 
 #--------------------------
 # === TAKE DATA DAL DATASET ===
@@ -193,30 +192,54 @@ def age_prob_alive(df):
 
 # === PREDICTION ===
 def alive_prediction(df):
-  #Take data
-  X = df[['Age','Sex','Pclass']]
+  # Prendi i dati
+  X = df[['Age', 'Sex', 'Pclass']]
   y = df['Survived']
-  
+
   # 2. Suddividi il dataset in training e test (80% training, 20% test)
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  
-  # 3. Crea e addestra il modello DecisionTreeClassifier
+
+  # 3. Definisci i parametri per GridSearchCV
+  param_grid = {
+    'criterion': ['gini', 'entropy'],           # Tipo di criterio per l'albero
+    'max_depth': [None, 10, 20, 30],            # Profondità massima
+    'min_samples_split': [2, 5, 10],            # Minimo di campioni per dividere un nodo
+    'min_samples_leaf': [1, 2, 4]               # Minimo di campioni per nodo foglia
+  }
+
+  # 4. Crea il modello DecisionTreeClassifier
   model = DecisionTreeClassifier(random_state=42)
-  model.fit(X_train, y_train)
 
-  # 4. Fai una previsione sui dati di test
-  y_pred = model.predict(X_test)
+  # 5. Crea il GridSearchCV per trovare i migliori parametri
+  grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='accuracy', n_jobs=-1)
 
-  # 5. Calcola e stampa l'accuratezza
+  # 6. Fai il fit con i dati di addestramento
+  grid_search.fit(X_train, y_train)
+
+  # 7. Mostra i migliori parametri trovati
+  print(f"Migliori parametri trovati: {grid_search.best_params_}")
+
+  # 8. Usa il miglior modello per fare previsioni
+  best_model = grid_search.best_estimator_
+  y_pred = best_model.predict(X_test)
+
+  # 9. Calcola e stampa l'accuratezza
   accuracy = accuracy_score(y_test, y_pred)
-  print(f"Accuratezza del modello: {accuracy * 100:.2f}%")
+  print(f"Accuratezza del modello con GridSearch: {accuracy * 100:.2f}%")
 
-  # 6. Predizione su un nuovo dato (esempio: un nuovo passeggero)
-  new_passenger = pd.DataFrame({'Age': [25], 'Sex': [1], 'Pclass': [3]})  # esempio di un nuovo passeggero
+  # 10. Stampa il classification report
+  print(classification_report(y_test, y_pred, target_names=['Non Sopravvissuto', 'Sopravvissuto']))
 
-  # Predizione del nuovo passeggero
-  prediction = model.predict(new_passenger)
-  print(f"Predizione per il nuovo passeggero: {'Sopravvissuto' if prediction[0] == 1 else 'Non sopravvissuto'}")
+  # 11. Calcola la matrice di confusione
+  cm = confusion_matrix(y_test, y_pred)
+
+  # 12. Visualizza la matrice di confusione
+  plt.figure(figsize=(6, 5))
+  sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non Sopravvissuto', 'Sopravvissuto'], yticklabels=['Non Sopravvissuto', 'Sopravvissuto'])
+  plt.title('Matrice di Confusione con GridSearch')
+  plt.xlabel('Predizione')
+  plt.ylabel('Valore Reale')
+  plt.show()
 
 # === MENU ===
 def menu():
