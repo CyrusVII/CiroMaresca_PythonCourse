@@ -29,6 +29,10 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder
 
 #--------------------------
 # === TAKE DATA DAL DATASET ===
@@ -184,14 +188,35 @@ def age_prob_alive(df):
   # Mostra il grafico
   plt.tight_layout()
   plt.show()
-
 # L’imbarco in una certa città (Embarked) ha influenzato la sopravvivenza?
 # Il prezzo del biglietto (Fare) è correlato alla probabilità di sopravvivenza?
 
+# === PREDICTION ===
+def alive_prediction(df):
+  #Take data
+  X = df[['Age','Sex','Pclass']]
+  y = df['Survived']
+  
+  # 2. Suddividi il dataset in training e test (80% training, 20% test)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # 3. Crea e addestra il modello DecisionTreeClassifier
+  model = DecisionTreeClassifier(random_state=42)
+  model.fit(X_train, y_train)
 
+  # 4. Fai una previsione sui dati di test
+  y_pred = model.predict(X_test)
 
+  # 5. Calcola e stampa l'accuratezza
+  accuracy = accuracy_score(y_test, y_pred)
+  print(f"Accuratezza del modello: {accuracy * 100:.2f}%")
 
+  # 6. Predizione su un nuovo dato (esempio: un nuovo passeggero)
+  new_passenger = pd.DataFrame({'Age': [25], 'Sex': [1], 'Pclass': [3]})  # esempio di un nuovo passeggero
 
+  # Predizione del nuovo passeggero
+  prediction = model.predict(new_passenger)
+  print(f"Predizione per il nuovo passeggero: {'Sopravvissuto' if prediction[0] == 1 else 'Non sopravvissuto'}")
 
 # === MENU ===
 def menu():
@@ -206,6 +231,7 @@ def menu():
     print("5. Grafico di sopravvivenza per sesso")
     print("6. Probabilita di sopravvivenza per classe")
     print("7. Sopravvivenza per fascie di eta")
+    print("8. Prediction")
     ch = input("---> ")
     match ch:
       case "0":
@@ -225,6 +251,8 @@ def menu():
         clas_prob_alive(df)
       case "7":
         age_prob_alive(df)
+      case "8":
+        alive_prediction(df)
 
 # === AVVIO ===
 if __name__ == "__main__":
