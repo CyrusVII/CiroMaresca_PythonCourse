@@ -86,3 +86,6 @@ results = {
     "R^2 Polinomiale": r2_poly,
 }
 results
+
+#martrice correlazione poi fail vif poi forse utilizaszi ridge o se no lasso se sono meno importanti
+#selectk kee best
