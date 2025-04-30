@@ -50,16 +50,16 @@ def prepare_data():
 
     # Seleziona solo le colonne utili
     df_selected = df[X_selected.columns.tolist() + categorical_features + [target]].dropna()
-
-    # One-hot encoding delle variabili categoriche
-    df_encoded = pd.get_dummies(df_selected, columns=categorical_features, drop_first=True)
     
     # Standardizzazione delle feature numeriche
     scaler = StandardScaler()
-    df_encoded[X_selected.columns.tolist()] = scaler.fit_transform(df_encoded[numerical_cols])
-
-    return df_encoded
+    df_selected[X_selected.columns.tolist()] = scaler.fit_transform(df_selected[X_selected.columns.tolist()])
+    
+    df_selected[categorical_features] = df[categorical_features].astype('category')
+    
+    return df_selected,X_selected,y,categorical_features,scaler
     
 prepare_data()
+
 
 
