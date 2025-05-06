@@ -1,39 +1,65 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+import numpy as np
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import GridSearchCV
+from xgboost import XGBRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_log_error
 
-# --- Caricamento dati ---
+# --- Caricamento dei dati ---
 train_df = pd.read_csv("MyCsv/EsCalorie/train.csv")
-test_df  = pd.read_csv("MyCsv/EsCalorie/test.csv")
+test_df = pd.read_csv("MyCsv/EsCalorie/test.csv")
 
-# --- Codifica della colonna 'Sex' ---
+# --- Codifica variabile categorica 'Sex' ---
 le = LabelEncoder()
 train_df['Sex'] = le.fit_transform(train_df['Sex'].astype(str))
-test_df ['Sex'] = le.transform(test_df['Sex'].astype(str))
+test_df['Sex'] = le.transform(test_df['Sex'].astype(str))
 
-# --- Separazione feature e target ---
+# --- Feature Engineering: crea BMI e Effort ---
+for df in [train_df, test_df]:
+    df['BMI'] = df['Weight'] / ((df['Height'] / 100) ** 2)     # BMI = peso / altezza²
+    df['Effort'] = df['Heart_Rate'] * df['Duration']           # Intensità = battito x durata
+
+# --- Separazione delle feature e del target ---
 X = train_df.drop(['id', 'Calories'], axis=1)
-y = train_df['Calories']
+y = np.log1p(train_df['Calories'])  # Trasformazione log1p per ottimizzare con MSLE
+X_test = test_df.drop('id', axis=1)
 
-# --- Controlli diagnostici per NaN ---
-print("Valori NaN in X:\n", X.isnull().sum())
-print("Valori NaN in y:\n", y.isnull().sum())
+# --- Pulizia (riempimento valori mancanti e tipi coerenti) ---
+X = X.fillna(X.mean()).astype(float)
+X_test = X_test.fillna(X_test.mean()).astype(float)
 
-# --- Se ci sono NaN, puoi riempirli così (opzionale) ---
-# X = X.fillna(X.mean())
-# y = y.fillna(y.mean())
+# --- Definizione del modello base XGBoost ---
+xgb = XGBRegressor(objective='reg:squarederror', random_state=42)
 
-# --- Conversione forzata a numerico ---
-X = X.astype(float)
-y = y.astype(float)
+# --- Griglia estesa di iperparametri ---
+param_grid = {
+    'n_estimators': [100, 200, 300],         # Numero di alberi
+    'learning_rate': [0.01, 0.05, 0.1],      # Tasso di apprendimento
+    'max_depth': [3, 4, 5],                  # Profondità degli alberi
+    'subsample': [0.6, 0.8, 1.0],            # Percentuale di dati per ogni albero
+    'colsample_bytree': [0.6, 0.8, 1.0]      # Percentuale di feature da usare per albero
+}
 
-# --- Addestramento del modello ---
-model = RandomForestRegressor(n_estimators=100, random_state=42)
-model.fit(X, y)
+# --- Ricerca iperparametri con validazione incrociata ---
+grid_search = GridSearchCV(
+    estimator=xgb,
+    param_grid=param_grid,
+    cv=5,
+    scoring='neg_mean_squared_error',  # MSLE richiede errori piccoli in scala log
+    verbose=1,
+    n_jobs=-1
+)
 
-# --- Previsione sul test set ---
-X_test = test_df.drop('id', axis=1).astype(float)
-predictions = model.predict(X_test)
+# --- Addestramento con GridSearch ---
+grid_search.fit(X, y)
+best_model = grid_search.best_estimator_
+print("Migliori parametri trovati:", grid_search.best_params_)
+
+# --- Predizione e ritorno alla scala originale ---
+log_preds = best_model.predict(X_test)
+predictions = np.expm1(log_preds)              # Inverso di log1p
+predictions = np.maximum(predictions, 0)       # Elimina valori negativi per sicurezza
 
 # --- Creazione del file di sottomissione ---
 submission = pd.DataFrame({
@@ -41,8 +67,9 @@ submission = pd.DataFrame({
     'Calories': predictions
 })
 
-# --- Salvataggio ---
+# --- Salvataggio del file ---
 submission.to_csv("MyCsv/EsCalorie/final_submission.csv", index=False)
 print("File 'final_submission.csv' creato con successo.")
 
-print("fine")
+
+
